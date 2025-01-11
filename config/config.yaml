@@ -1,0 +1,6 @@
+apps: 
+  calculator: 
+    app_package: "com.sec.android.app.popupcalculator"
+    app_activity: "com.sec.android.app.popupcalculator.Calculator"
+  messages: 
+  contacts: 
