@@ -1,6 +1,9 @@
+import os
 import time
 import pytest
 from appium.webdriver.common.appiumby import AppiumBy
+
+from utils.tools import YamlManager
 
 
 @pytest.fixture(scope="class")
@@ -8,10 +11,7 @@ def app_data():
     """
     Define app-specific data (e.g., package and activity).
     """
-    return {
-        "app_package": "com.sec.android.app.popupcalculator",
-        "app_activity": "com.sec.android.app.popupcalculator.Calculator"
-    }
+    return YamlManager.get_yaml_file_data("config\config.yaml")["apps"]["calculator"]
 
 
 class TestBasicOperations:
