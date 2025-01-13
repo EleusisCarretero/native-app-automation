@@ -20,3 +20,46 @@ class YamlManager:
         with open(file_path, "r") as file:
             content = yaml.safe_load(file)
         return content
+
+
+def sum_seq_number(sequence_num):
+    """
+    Return a sequence number sum. 
+
+    Ex:
+        123 -> 1+2+3 -> 6
+    
+    Returns:
+        int: sum of input
+    """
+    return sum([int(n) for n in str(sequence_num)])
+
+def subs_seq_number(sequence_num):
+    """
+    Returns a sequence number subtraction.
+
+    Ex:
+        123 -> 1-2-3 -> -4
+    
+    Returns:
+        int: subtraction of input
+    """
+    _subs = 0
+    for i, n in enumerate(str(sequence_num)):
+        if i == 0:
+            _subs = int(n)
+        else:
+            _subs -= int(n)
+    return _subs
+
+def mul_sep_number(sequence_num):
+    _mul = 0
+    for n in str(sequence_num):
+        _mul *= int(n)
+    return _mul
+
+def div_seq_number(sequence_num):
+    _div = 0
+    for n in str(sequence_num):
+        _div /= int(n)
+    return _div
