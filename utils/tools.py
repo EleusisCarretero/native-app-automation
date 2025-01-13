@@ -53,13 +53,16 @@ def subs_seq_number(sequence_num):
     return _subs
 
 def mul_sep_number(sequence_num):
-    _mul = 0
+    _mul = 1
     for n in str(sequence_num):
-        _mul *= int(n)
+        _mul *= float(n)
     return _mul
 
 def div_seq_number(sequence_num):
     _div = 0
-    for n in str(sequence_num):
-        _div /= int(n)
+    for i, n in enumerate(str(sequence_num)):
+        if i == 0:
+            _div = float(n)
+        else:
+            _div /= float(n)
     return _div
