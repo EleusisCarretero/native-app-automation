@@ -80,8 +80,8 @@ class CalculatorApp(BaseApp):
         """
         response = self.get_text(CalculatorLocators.get_result()).split()
         if 'Minus' in response:
-            return "-" + response[1]
-        return response[0]
+            return "-" + response[1].replace(",","")
+        return response[0].replace(",","")
 
     def addition(self):
         """
