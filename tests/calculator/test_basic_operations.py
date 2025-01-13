@@ -1,9 +1,5 @@
-import os
-import time
 import pytest
-from appium.webdriver.common.appiumby import AppiumBy
-
-from apps.calculator_app import CalculatorApp
+from tests.calculator.base_test_calculator import BaseTestCalculator
 from utils.tools import YamlManager, div_seq_number, mul_sep_number, subs_seq_number, sum_seq_number
 
 
@@ -15,15 +11,12 @@ def app_data():
     return YamlManager.get_yaml_file_data("config\config.yaml")["apps"]["calculator"]
 
 
-class TestBasicOperations:
+class TestBasicOperations(BaseTestCalculator):
 
     @pytest.fixture(autouse=True)
     def setup(self, driver):
-        self.driver_manager = driver
-        self.cal_iface = CalculatorApp(self.driver_manager.driver)
-    
-    
-    
+        super().setup(driver)
+
     @pytest.mark.parametrize(
             ("number"),
             [
@@ -73,8 +66,8 @@ class TestBasicOperations:
     def test_simple_mul(self, number):
         len_operation = len(str(number)) - 1
         result = self.cal_iface.single_seq_operation(num=number, operations=["*" for _ in range(len_operation)])
-        assert int(result) == mul_sep_number(number)
-    
+        assert float(result) == mul_sep_number(number)
+
     @pytest.mark.parametrize(
             ("number"),
             [
@@ -86,4 +79,4 @@ class TestBasicOperations:
     def test_simple_div(self, number):
         len_operation = len(str(number)) - 1
         result = self.cal_iface.single_seq_operation(num=number, operations=["/" for _ in range(len_operation)])
-        assert int(result) == div_seq_number(number)
+        assert float(result) == round(div_seq_number(number), 9)
