@@ -50,6 +50,8 @@ class CalculatorApp(BaseApp):
             Operations.PLUS: self.addition,
             Operations.EQUALS: self.equals_to,
             Operations.MINUS: self.subtraction,
+            Operations.MUL: self.multiplication,
+            Operations.DIV: self.division
         }
 
     def tap_num(self, num:NumButton):
