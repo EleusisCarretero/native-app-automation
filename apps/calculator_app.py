@@ -92,6 +92,18 @@ class CalculatorApp(BaseApp):
         Method to click on subtraction button.
         """
         self.click_app_button(CalculatorLocators.get_op_locator(op="Minus"))
+    
+    def multiplication(self):
+        """
+        Method to click on 'Multiplication' button.
+        """
+        self.click_app_button(CalculatorLocators.get_op_locator(op="Multiplication"))
+    
+    def division(self):
+        """
+        Method to click on 'Division' button.
+        """
+        self.click_app_button(CalculatorLocators.get_op_locator(op="Division"))
 
     def set_sequence_number(self, num):
         """
