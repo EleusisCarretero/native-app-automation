@@ -64,6 +64,12 @@ class TestBasicOperations(BaseTestCalculator):
             ]
     )
     def test_simple_mul(self, number):
+        """
+        Test case to evaluate a simple multiplication of unit numbers.
+
+        Args:
+            number(int): Sequence of unit numbers
+        """
         len_operation = len(str(number)) - 1
         result = self.cal_iface.single_seq_operation(num=number, operations=["*" for _ in range(len_operation)])
         assert float(result) == mul_sep_number(number)
@@ -77,6 +83,12 @@ class TestBasicOperations(BaseTestCalculator):
             ]
     )
     def test_simple_div(self, number):
+        """
+        Test case to evaluate a simple division of unit numbers.
+
+        Args:
+            number(int): Sequence of unit numbers
+        """
         len_operation = len(str(number)) - 1
         result = self.cal_iface.single_seq_operation(num=number, operations=["/" for _ in range(len_operation)])
         assert float(result) == round(div_seq_number(number), 9)
