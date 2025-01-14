@@ -121,3 +121,20 @@ class TestBasicOperations(BaseTestCalculator):
         result = self.cal_iface.single_seq_operation(num=number, operations=operations)
         print(f"Result: {result}")
         assert round(float(result), 9) == round(MathUtils.arithmetic_operation_seq_number(number, operations), 9)
+
+    @pytest.mark.parametrize(
+        ("value"),
+        [9, 1, 6]
+    )
+    def test_unit_percentage(self, value):
+        self.cal_iface.tap_num(value)
+        self.cal_iface.percentage()
+        self.cal_iface.equals_to()
+        actual_percentage = self.cal_iface.result()
+        assert str(value / 100) == actual_percentage
+
+    def test_bigger_that_units_numbers(self):
+        list_numbers = [123,98,345,736]
+        operations = ["+" for _ in range(len(list_numbers) - 1)]
+        res = self.cal_iface.large_seq_operation(list_numbers,operations)
+        print(res)
