@@ -22,47 +22,13 @@ class YamlManager:
         return content
 
 
-def sum_seq_number(sequence_num):
-    """
-    Return a sequence number sum. 
-
-    Ex:
-        123 -> 1+2+3 -> 6
-    
-    Returns:
-        int: sum of input
-    """
-    return sum([int(n) for n in str(sequence_num)])
-
-def subs_seq_number(sequence_num):
-    """
-    Returns a sequence number subtraction.
-
-    Ex:
-        123 -> 1-2-3 -> -4
-    
-    Returns:
-        int: subtraction of input
-    """
-    _subs = 0
-    for i, n in enumerate(str(sequence_num)):
+def arithmetic_operation_seq_number(sequence_num, arithmetic_op):
+    res = 0
+    for i, num in enumerate(str(sequence_num)):
         if i == 0:
-            _subs = int(n)
+            res = float(num)
         else:
-            _subs -= int(n)
-    return _subs
+            res = eval(f"{res}{arithmetic_op[i-1]}{num}")
+    return res
 
-def mul_sep_number(sequence_num):
-    _mul = 1
-    for n in str(sequence_num):
-        _mul *= float(n)
-    return _mul
 
-def div_seq_number(sequence_num):
-    _div = 0
-    for i, n in enumerate(str(sequence_num)):
-        if i == 0:
-            _div = float(n)
-        else:
-            _div /= float(n)
-    return _div
