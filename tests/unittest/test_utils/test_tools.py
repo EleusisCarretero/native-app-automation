@@ -3,8 +3,10 @@ from utils.tools import MathUtils, MathUtilsError
 from parameterized import parameterized
 
 class InvalidStrObject:
+    def __init__(self, value):
+        self._value = value
     def __str__(self):
-        raise ValueError("Cannot convert to string")
+        return int(self._value)
 
 class TestMathUtils(unittest.TestCase):
 
@@ -27,6 +29,7 @@ class TestMathUtils(unittest.TestCase):
             ("{}2aq"),
             ("HOLA"),
             ("onetrheseven"),
+            (None)
         ]
     )
     def test_invalid_pattern(self, invalid_object):
@@ -35,6 +38,14 @@ class TestMathUtils(unittest.TestCase):
             MathUtils.arithmetic_operation_seq_number(invalid_object,operations)
         actual_exception = e.expected
         self.assertEqual(actual_exception, MathUtilsError)
+
+    def test_type_error(self):
+        invalid_obj = InvalidStrObject("3")
+        operations = ["+" for _ in range(3)]
+        with self.assertRaises(expected_exception=TypeError) as e:
+            MathUtils.arithmetic_operation_seq_number(invalid_obj, operations)
+        actual_exception = e.expected
+        self.assertEqual(actual_exception, TypeError)
 
 
 
