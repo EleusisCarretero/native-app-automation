@@ -1,6 +1,6 @@
 import pytest
 from tests.calculator.base_test_calculator import BaseTestCalculator
-from utils.tools import YamlManager, div_seq_number, mul_sep_number, subs_seq_number, sum_seq_number
+from utils.tools import YamlManager, arithmetic_operation_seq_number
 
 
 @pytest.fixture(scope="class")
@@ -11,6 +11,37 @@ def app_data():
     return YamlManager.get_yaml_file_data("config\config.yaml")["apps"]["calculator"]
 
 
+def sequenced_operation(type_of_op):
+
+    return {
+        "simple_add":  [
+                (897),
+                (87531),
+                (753149)
+        ],
+        "simple_sub": [
+                (897),
+                (87531),
+                (753149)
+        ],
+        "simple_mul": [
+                (897),
+                (87531),
+                (753149)
+        ],
+        "simple_div":  [
+                (897),
+                (87531),
+                (753149)
+        ],
+        "simple_ops": [ 
+            (897, ['+', '*']),
+            (87531, ['/','*', '+', '-']),
+            (753149, ['+', '+', '/', '/', '*'])
+        ]
+    }.get(type_of_op, None)
+
+
 class TestBasicOperations(BaseTestCalculator):
 
     @pytest.fixture(autouse=True)
@@ -18,12 +49,7 @@ class TestBasicOperations(BaseTestCalculator):
         super().setup(driver)
 
     @pytest.mark.parametrize(
-            ("number"),
-            [
-                (897),
-                (87531),
-                (753149)
-            ]
+            ("number"), sequenced_operation("simple_add")
     )
     def test_simple_addition(self, number):
         """
@@ -33,16 +59,12 @@ class TestBasicOperations(BaseTestCalculator):
             number(int): Sequence of unit numbers
         """
         len_operation = len(str(number)) - 1
-        result = self.cal_iface.single_seq_operation(num=number, operations=["+" for _ in range(len_operation)])
-        assert int(result) == sum_seq_number(number)
+        operations=["+" for _ in range(len_operation)]
+        result = self.cal_iface.single_seq_operation(num=number, operations=operations)
+        assert int(result) == arithmetic_operation_seq_number(number, operations)
 
     @pytest.mark.parametrize(
-            ("number"),
-            [
-                (897),
-                (87531),
-                (753149)
-            ]
+            ("number"), sequenced_operation("simple_sub")
     )
     def test_simple_subtraction(self, number):
         """
@@ -52,16 +74,12 @@ class TestBasicOperations(BaseTestCalculator):
             number(int): Sequence of unit numbers
         """
         len_operation = len(str(number)) - 1
-        result = self.cal_iface.single_seq_operation(num=number, operations=["-" for _ in range(len_operation)])
-        assert int(result) == subs_seq_number(number)
+        operations=["-" for _ in range(len_operation)]
+        result = self.cal_iface.single_seq_operation(num=number, operations=operations)
+        assert int(result) == arithmetic_operation_seq_number(number, operations)
 
     @pytest.mark.parametrize(
-            ("number"),
-            [
-                (897),
-                (87531),
-                (753149)
-            ]
+            ("number"), sequenced_operation("simple_mul")
     )
     def test_simple_mul(self, number):
         """
@@ -71,16 +89,12 @@ class TestBasicOperations(BaseTestCalculator):
             number(int): Sequence of unit numbers
         """
         len_operation = len(str(number)) - 1
-        result = self.cal_iface.single_seq_operation(num=number, operations=["*" for _ in range(len_operation)])
-        assert float(result) == mul_sep_number(number)
+        operations=["*" for _ in range(len_operation)]
+        result = self.cal_iface.single_seq_operation(num=number, operations=operations)
+        assert float(result) == arithmetic_operation_seq_number(number, operations)
 
     @pytest.mark.parametrize(
-            ("number"),
-            [
-                (897),
-                (87531),
-                (753149)
-            ]
+            ("number"), sequenced_operation("simple_div")
     )
     def test_simple_div(self, number):
         """
@@ -90,5 +104,20 @@ class TestBasicOperations(BaseTestCalculator):
             number(int): Sequence of unit numbers
         """
         len_operation = len(str(number)) - 1
-        result = self.cal_iface.single_seq_operation(num=number, operations=["/" for _ in range(len_operation)])
-        assert float(result) == round(div_seq_number(number), 9)
+        operations=["/" for _ in range(len_operation)]
+        result = self.cal_iface.single_seq_operation(num=number, operations=operations)
+        assert round(float(result), 9) == round(arithmetic_operation_seq_number(number, operations), 9)
+
+    @pytest.mark.parametrize(
+            ("number", "operations"), sequenced_operation("simple_ops")
+    )
+    def test_simple_operations(self, number, operations):
+        """
+        Test case to evaluate a mix of simple operations over a sequence of unit numbers
+        Args:
+            number(int): Sequence of unit numbers
+            operations(list): list of arithmetic operations to do
+        """
+        result = self.cal_iface.single_seq_operation(num=number, operations=operations)
+        print(f"Result: {result}")
+        assert round(float(result), 9) == round(arithmetic_operation_seq_number(number, operations), 9)
