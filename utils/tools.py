@@ -29,12 +29,12 @@ class MathUtils:
 
     @staticmethod
     def arithmetic_operation_seq_number(sequence_num, arithmetic_op):
-        pattern_num = r"\d*"
+        pattern_num = r'^-?\d+(\.\d+)?$'
         try:
             str_sequence_num = str(sequence_num)
-        except TypeError:
-            raise MathUtilsError("Unable to convert {sequence_num} to str")
-        if not re.search(pattern_num, str_sequence_num):
+        except ValueError:
+            raise MathUtilsError(f"Unable to convert {sequence_num} to str")
+        if not re.match(pattern_num, str_sequence_num):
             raise MathUtilsError("'arithmetic_op' should be a string of number between 0-9")
         res = 0
         for i, num in enumerate(str_sequence_num):
