@@ -1,6 +1,6 @@
 import pytest
 from tests.calculator.base_test_calculator import BaseTestCalculator
-from utils.tools import YamlManager, arithmetic_operation_seq_number
+from utils.tools import YamlManager, MathUtils
 
 
 @pytest.fixture(scope="class")
@@ -61,7 +61,7 @@ class TestBasicOperations(BaseTestCalculator):
         len_operation = len(str(number)) - 1
         operations=["+" for _ in range(len_operation)]
         result = self.cal_iface.single_seq_operation(num=number, operations=operations)
-        assert int(result) == arithmetic_operation_seq_number(number, operations)
+        assert int(result) == MathUtils.arithmetic_operation_seq_number(number, operations)
 
     @pytest.mark.parametrize(
             ("number"), sequenced_operation("simple_sub")
@@ -76,7 +76,7 @@ class TestBasicOperations(BaseTestCalculator):
         len_operation = len(str(number)) - 1
         operations=["-" for _ in range(len_operation)]
         result = self.cal_iface.single_seq_operation(num=number, operations=operations)
-        assert int(result) == arithmetic_operation_seq_number(number, operations)
+        assert int(result) == MathUtils.arithmetic_operation_seq_number(number, operations)
 
     @pytest.mark.parametrize(
             ("number"), sequenced_operation("simple_mul")
@@ -91,7 +91,7 @@ class TestBasicOperations(BaseTestCalculator):
         len_operation = len(str(number)) - 1
         operations=["*" for _ in range(len_operation)]
         result = self.cal_iface.single_seq_operation(num=number, operations=operations)
-        assert float(result) == arithmetic_operation_seq_number(number, operations)
+        assert float(result) == MathUtils.arithmetic_operation_seq_number(number, operations)
 
     @pytest.mark.parametrize(
             ("number"), sequenced_operation("simple_div")
@@ -106,7 +106,7 @@ class TestBasicOperations(BaseTestCalculator):
         len_operation = len(str(number)) - 1
         operations=["/" for _ in range(len_operation)]
         result = self.cal_iface.single_seq_operation(num=number, operations=operations)
-        assert round(float(result), 9) == round(arithmetic_operation_seq_number(number, operations), 9)
+        assert round(float(result), 9) == round(MathUtils.arithmetic_operation_seq_number(number, operations), 9)
 
     @pytest.mark.parametrize(
             ("number", "operations"), sequenced_operation("simple_ops")
@@ -120,4 +120,4 @@ class TestBasicOperations(BaseTestCalculator):
         """
         result = self.cal_iface.single_seq_operation(num=number, operations=operations)
         print(f"Result: {result}")
-        assert round(float(result), 9) == round(arithmetic_operation_seq_number(number, operations), 9)
+        assert round(float(result), 9) == round(MathUtils.arithmetic_operation_seq_number(number, operations), 9)
