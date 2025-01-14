@@ -107,6 +107,9 @@ class CalculatorApp(BaseApp):
         """
         self.click_app_button(CalculatorLocators.get_op_locator(op="Division"))
 
+    def percentage(self):
+        self.click_app_button(CalculatorLocators.get_op_locator(op="Percentage"))
+
     def set_sequence_number(self, num):
         """
         Method to get the individual number of a 'sequenced' number bigger to 9.
@@ -154,3 +157,20 @@ class CalculatorApp(BaseApp):
             time.sleep(0.25)
         self.equals_to()
         return str(self.result())
+
+    def large_seq_operation(self, list_numbers, operations, mid_equal=True):
+        for i, num in enumerate(list_numbers):
+            for digit in self.set_sequence_number(num):
+                self.tap_num(digit)
+            if self.sequence is None:
+                if mid_equal:
+                    self.equals_to()
+                try:
+                    self.MAP_OPE[operations[i]]()
+                except IndexError:
+                    pass
+            time.sleep(0.1)
+        self.equals_to()
+        return str(self.result())
+
+
