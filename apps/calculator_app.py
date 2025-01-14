@@ -132,21 +132,24 @@ class CalculatorApp(BaseApp):
         finally:
             self.sequence = None
             print("no more numbers")
-        
-    def single_seq_operation(self, num, operations):
+
+    def single_seq_operation(self, num, operations, mid_equal=True):
         """
         Method to perform simple operations with number no bigger to 9.
 
         Args:
             num(int): number bigger to 9.
             operations(list): list of simple arithmetic operation
-        
+            mid_equal(bool): Flag to make a middle equal after each operations, otherwise it will
+            done just after last operation.
         Returns:
             str: number from result gotten after operations.
         """
         for i, digit in enumerate(self.set_sequence_number(num)):
             self.tap_num(digit)
             if self.sequence > 0:
+                if mid_equal:
+                    self.equals_to()
                 self.MAP_OPE[operations[i]]()
             time.sleep(0.25)
         self.equals_to()
