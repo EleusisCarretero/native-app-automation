@@ -2,5 +2,8 @@ apps:
   calculator: 
     app_package: "com.sec.android.app.popupcalculator"
     app_activity: "com.sec.android.app.popupcalculator.Calculator"
+  camera:
+    app_package: "com.sec.android.app.camera"
+    app_activity: ".Camera"
   messages: 
   contacts: 
