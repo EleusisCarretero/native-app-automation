@@ -1,4 +1,5 @@
-
+import pytest
+from enum import Enum
 from apps.calculator_app import CalculatorApp
 
 
