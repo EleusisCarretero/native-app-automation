@@ -8,7 +8,7 @@ def pytest_addoption(parser):
     """
     parser.addoption("--device_name", action="store", default="Galaxy A33", help="Device name")
 
-@pytest.fixture(scope="class")
+@pytest.fixture(scope="function")
 def driver(pytestconfig, app_data):
     """
     Configures the Appium driver using app-specific data.
