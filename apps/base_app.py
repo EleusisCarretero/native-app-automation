@@ -10,3 +10,7 @@ class BaseApp:
         obj = self.base_driver.find_element(*locator)
         return obj.text
 
+    def get_list_of_elements(self,  locator):
+        list_obj = self.base_driver.find_elements(*locator)
+        return list_obj
+
