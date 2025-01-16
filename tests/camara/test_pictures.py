@@ -48,6 +48,7 @@ class TestPictures(BaseTestCamara):
         expected_time = dt_object.strftime("%B %d, %Yㆍ%I:%M\u202F%p")
         print(f"Expected date: {expected_time}")
         # 3. Click on last picture button
+        time.sleep(2)
         self.camara_iface.see_last_picture()
         # 4. since gallery click on info button
         self.gallery_iface.click_info_button()
