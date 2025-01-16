@@ -50,6 +50,7 @@ class TestPictures(BaseTestCamara):
         # 3. Click on last picture button
         self.camara_iface.see_last_picture()
         # 4. since gallery click on info button
+        time.sleep(1)
         self.gallery_iface.click_info_button()
         # 5. Get date from the current picture
         current_picture_date = self.gallery_iface.get_picture_date()
