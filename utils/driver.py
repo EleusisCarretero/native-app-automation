@@ -20,7 +20,7 @@ class AppiumDriverManager:
             "automationName": "UiAutomator2",
             "appPackage": app_package,
             "appActivity": app_activity,
-            "noReset": True
+            # "noReset": True
         }
         self.driver = None
         self._options = UiAutomator2Options().load_capabilities(self.capabilities)
@@ -35,10 +35,10 @@ class AppiumDriverManager:
         except Exception as e:
             raise AppiumDriverManagerError("Unable to start driver") from e
     
-    def stop_driver(self, driver=None):
-        driver = driver or self.driver
+    def stop_driver(self):
+        # driver = driver or self.driver
         try:
-            driver.quit()
+            self.driver.quit()
         except Exception as e:
             raise AppiumDriverManagerError ("Unable to stop driver") from e
 
