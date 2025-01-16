@@ -2,26 +2,10 @@ import re
 import time
 from datetime import datetime, timezone
 import pytest
-
 from apps.gallery_app import GalleryApp
 from tests.camara.base_test_camara import BaseTestCamara, CameraType
-from utils.locators import GalleryLocators
 from utils.tools import YamlManager
 
-
-def pytest_addoption(parser):
-    """
-    Defines the costume console inputs to run the tests
-    """
-    parser.addoption("--camera_type", action="store", default="Frontal", help="Camera type")
-
-
-@pytest.fixture(scope="function")
-def camera_type(pytestconfig):
-    """
-    Configures the Appium driver using app-specific data.
-    """
-    return pytestconfig.getoption("camera_type")
 
 
 @pytest.fixture(scope="class")
@@ -33,9 +17,9 @@ def app_data():
 
 class TestPictures(BaseTestCamara):
     @pytest.fixture(autouse=True)
-    def setup(self, driver, camera_type):
+    def setup(self, driver):
         super().setup(driver)
-        self.gallery_iface = GalleryApp(self.driver_manager.driver)        print(f"Camera type: {camera_type}")
+        self.gallery_iface = GalleryApp(self.driver_manager.driver)
 
 
     @pytest.mark.parametrize(
@@ -49,6 +33,7 @@ class TestPictures(BaseTestCamara):
         """
         Test case to validate that a picture has been taken validating the date of last picture matches the
         date of the moment when the picture has been taken.
+        TODO: Figureo out how to pass 'cameratype' as a console input just for this test, or any camera test
         """
         if camera_type == CameraType.FRONTAL:
             self.camara_iface.switch_camera()
@@ -65,7 +50,6 @@ class TestPictures(BaseTestCamara):
         # 3. Click on last picture button
         self.camara_iface.see_last_picture()
         # 4. since gallery click on info button
-        time.sleep(3)
         self.gallery_iface.click_info_button()
         # 5. Get date from the current picture
         current_picture_date = self.gallery_iface.get_picture_date()
@@ -74,7 +58,4 @@ class TestPictures(BaseTestCamara):
         result = re.match(pattern_date, current_picture_date)
         assert result
         # 7. Check date matches TODO: correct date format
-        #assert expected_time == current_picture_date
-
-
-
+        #TODO: assert expected_time == current_picture_date
