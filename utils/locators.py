@@ -35,6 +35,10 @@ class CamaraLocators:
     def get_switch_camera_locator(cls):
         return (AppiumBy.ID,cls.BASE_ID_BTTNS.format(button="switch_camera_button"))
 
+    @classmethod
+    def get_camera_screen_locator(cls):
+        return (AppiumBy.ID, cls.BASE_ID_BTTNS.format(button="camera_preview"))
+
 class GalleryLocators:
 
     @classmethod

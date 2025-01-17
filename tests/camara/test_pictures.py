@@ -60,3 +60,20 @@ class TestPictures(BaseTestCamara):
         assert result
         # 7. Check date matches TODO: correct date format
         #TODO: assert expected_time == current_picture_date
+
+    @pytest.mark.parametrize(
+        ("camera_type"),
+        [
+            # ("Frontal"),
+            ("Normal")
+        ]
+    )
+    def test_make_zoom(self, camera_type):
+        if camera_type == CameraType.FRONTAL:
+            self.camara_iface.switch_camera()
+        self.camara_iface.zoom_camera(percentage=0.75, velocity=1.0, expand=True)
+        time.sleep(4)
+        self.camara_iface.zoom_camera(percentage=0.60, velocity=1.0, expand=False)
+        time.sleep(4)
+        self.camara_iface.stepping_zoom_camera(stepping=0.05,percentage=0.15, velocity=1.0, expand=True)
+        self.camara_iface.take_picture()

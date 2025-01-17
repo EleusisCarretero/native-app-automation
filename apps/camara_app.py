@@ -18,3 +18,9 @@ class CamaraApp(BaseApp):
 
     def switch_camera(self):
         self.click_app_button(CamaraLocators.get_switch_camera_locator())
+
+    def zoom_camera(self,  percentage, velocity, expand):
+        self.make_zoom(percentage=percentage, velocity=velocity, expand=expand, locator=CamaraLocators.get_camera_screen_locator())
+
+    def stepping_zoom_camera(self, stepping ,percentage, velocity, expand=True):
+        self.stepping_zoom(stepping=stepping,percentage=percentage, velocity=velocity, expand=expand, locator=CamaraLocators.get_camera_screen_locator())
