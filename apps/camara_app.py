@@ -14,7 +14,7 @@ class CamaraApp(BaseApp):
         self.click_app_button((CamaraLocators.get_quick_view_locator()))
 
     def change_to_video(self):
-        self.click_app_button(CamaraLocators.get_video_locator())
+        self.click_app_button_in_list(CamaraLocators.get_video_locator(),3)
 
     def switch_camera(self):
         self.click_app_button(CamaraLocators.get_switch_camera_locator())
@@ -24,3 +24,9 @@ class CamaraApp(BaseApp):
 
     def stepping_zoom_camera(self, stepping ,percentage, velocity, expand=True):
         self.stepping_zoom(stepping=stepping,percentage=percentage, velocity=velocity, expand=expand, locator=CamaraLocators.get_camera_screen_locator())
+
+    def pause_recording(self):
+        self.click_app_button(CamaraLocators.get_pause_locator())
+
+    def stop_recording(self):
+        self.click_app_button(CamaraLocators.get_stop_locator())

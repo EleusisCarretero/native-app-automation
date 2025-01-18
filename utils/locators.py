@@ -25,19 +25,28 @@ class CamaraLocators:
 
     @classmethod
     def get_quick_view_locator(cls):
-        return (AppiumBy.ID, cls.BASE_ID_BTTNS.format(button="quick_view_button_layout"))
+        return AppiumBy.ID, cls.BASE_ID_BTTNS.format(button="quick_view_button_layout")
 
     @classmethod
     def get_video_locator(cls):
-        return (AppiumBy.ID, cls.BASE_ID_BTTNS.format(button="shooting_mode_item_button"))
+        return AppiumBy.ID, cls.BASE_ID_BTTNS.format(button="shooting_mode_item_button")
 
     @classmethod
     def get_switch_camera_locator(cls):
-        return (AppiumBy.ID,cls.BASE_ID_BTTNS.format(button="switch_camera_button"))
+        return AppiumBy.ID,cls.BASE_ID_BTTNS.format(button="switch_camera_button")
 
     @classmethod
     def get_camera_screen_locator(cls):
-        return (AppiumBy.ID, cls.BASE_ID_BTTNS.format(button="camera_preview"))
+        return AppiumBy.ID, cls.BASE_ID_BTTNS.format(button="camera_preview")
+
+    @classmethod
+    def get_pause_locator(cls):
+        return AppiumBy.ID, cls.BASE_ID_BTTNS.format(button="pause_button")
+
+    @classmethod
+    def get_stop_locator(cls):
+        return AppiumBy.ID, cls.BASE_ID_BTTNS.format(button="stop_button")
+
 
 class GalleryLocators:
 
@@ -48,3 +57,29 @@ class GalleryLocators:
     @classmethod
     def get_basic_info_locator(cls):
         return (AppiumBy.XPATH, "//android.widget.TextView[@resource-id='com.sec.android.gallery3d:id/bold_value']")
+
+class ClockLocators:
+    BASE_CLOCK_LOCATOR = "com.sec.android.app.clockpackage:id/{ele_id}"
+    @classmethod
+    def get_add_new_alarm_locator(cls):
+        return AppiumBy.ID, cls.BASE_CLOCK_LOCATOR.format(ele_id="menu_alarm_add")
+
+    @classmethod
+    def get_hours_column(cls):
+        return AppiumBy.ID, cls.BASE_CLOCK_LOCATOR.format(ele_id="sesl_timepicker_hour")
+
+    @classmethod
+    def get_mins_column(cls):
+        return AppiumBy.ID, cls.BASE_CLOCK_LOCATOR.format(ele_id="sesl_timepicker_minute")
+
+    @classmethod
+    def get_picker_column(cls):
+        return AppiumBy.XPATH, "//android.widget.NumberPicker"
+
+    @classmethod
+    def get_alarm_columns_locator(cls):
+        return  AppiumBy.XPATH, "//android.widget.LinearLayout[@resource-id='com.sec.android.app.clockpackage:id/sesl_timepicker_hour_minute_layout']/android.widget.NumberPicker"
+
+    @classmethod
+    def get_hours_element(cls, hour):
+        return AppiumBy.XPATH, "//android.widget.EditText[@resource-id='com.sec.android.app.clockpackage:id/numberpicker_input' and @text='{hour}, Hour']"

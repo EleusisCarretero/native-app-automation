@@ -34,6 +34,9 @@ class TestPictures(BaseTestCamara):
         Test case to validate that a picture has been taken validating the date of last picture matches the
         date of the moment when the picture has been taken.
         TODO: Figureo out how to pass 'cameratype' as a console input just for this test, or any camera test
+
+        Args:
+            camera_type (CameraType) : Camera type, Frontal or Normal
         """
         if camera_type == CameraType.FRONTAL:
             self.camara_iface.switch_camera()
@@ -64,7 +67,7 @@ class TestPictures(BaseTestCamara):
     @pytest.mark.parametrize(
         ("camera_type"),
         [
-            # ("Frontal"),
+            ("Frontal"),
             ("Normal")
         ]
     )
@@ -72,8 +75,10 @@ class TestPictures(BaseTestCamara):
         if camera_type == CameraType.FRONTAL:
             self.camara_iface.switch_camera()
         self.camara_iface.zoom_camera(percentage=0.75, velocity=1.0, expand=True)
-        time.sleep(4)
+        time.sleep(1)
         self.camara_iface.zoom_camera(percentage=0.60, velocity=1.0, expand=False)
-        time.sleep(4)
+        time.sleep(1)
         self.camara_iface.stepping_zoom_camera(stepping=0.05,percentage=0.15, velocity=1.0, expand=True)
+        time.sleep(3)
         self.camara_iface.take_picture()
+        time.sleep(2)

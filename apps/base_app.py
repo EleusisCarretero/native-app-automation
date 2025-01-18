@@ -30,6 +30,10 @@ class BaseApp:
         """
         button_obj = self.base_driver.find_element(*locator)
         button_obj.click()
+
+    def click_app_button_in_list(self, locator, element):
+        button_obj = self.base_driver.find_elements(*locator)[element]
+        button_obj.click()
     
     def get_text(self, locator):
         """
@@ -96,3 +100,5 @@ class BaseApp:
             velocity=velocity,
             expand=expand,
             wait_time=wait_time)
+
+    # def scrolling(self, direction, start_point, increase):

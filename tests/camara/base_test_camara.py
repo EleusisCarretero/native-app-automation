@@ -2,6 +2,10 @@ import pytest
 from enum import Enum
 from apps.camara_app import CamaraApp
 from tests.base_test import BaseTest
+from utils.tools import YamlManager
+
+
+
 
 
 class CameraType(str, Enum):

@@ -2,8 +2,14 @@ apps:
   calculator: 
     app_package: "com.sec.android.app.popupcalculator"
     app_activity: "com.sec.android.app.popupcalculator.Calculator"
+    noReset: False
   camera:
     app_package: "com.sec.android.app.camera"
     app_activity: ".Camera"
   messages: 
-  contacts: 
+  contacts:
+  clock:
+    app_package: "com.sec.android.app.clockpackage"
+    app_activity: "com.sec.android.app.clockpackage.ClockPackage"
+    noReset: True
+
