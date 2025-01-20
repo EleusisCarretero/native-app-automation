@@ -60,6 +60,7 @@ class GalleryLocators:
 
 class ClockLocators:
     BASE_CLOCK_LOCATOR = "com.sec.android.app.clockpackage:id/{ele_id}"
+    BASE_COLUMN_HOUR = "//android.widget.EditText[@resource-id='com.sec.android.app.clockpackage:id/numberpicker_input' and @text='{hour}, Hour']"
     @classmethod
     def get_add_new_alarm_locator(cls):
         return AppiumBy.ID, cls.BASE_CLOCK_LOCATOR.format(ele_id="menu_alarm_add")
@@ -82,4 +83,4 @@ class ClockLocators:
 
     @classmethod
     def get_hours_element(cls, hour):
-        return AppiumBy.XPATH, "//android.widget.EditText[@resource-id='com.sec.android.app.clockpackage:id/numberpicker_input' and @text='{hour}, Hour']"
+        return AppiumBy.XPATH, cls.BASE_COLUMN_HOUR.format(hour=hour)

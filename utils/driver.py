@@ -10,7 +10,7 @@ class AppiumDriverManagerError(Exception):
 class AppiumDriverManager:
     APPIUM_HOST = 'http://127.0.0.1:4723'
 
-    def __init__(self, app_package, app_activity,noReset=False, device_name="192.168.1.64:5555"):
+    def __init__(self, app_package, app_activity, device_name="192.168.1.64:5555", **kwargs):
         """
         TODO
         """
@@ -20,8 +20,9 @@ class AppiumDriverManager:
             "automationName": "UiAutomator2",
             "appPackage": app_package,
             "appActivity": app_activity,
-            "noReset": noReset
         }
+        for k, v in kwargs.items():
+            self.capabilities[k] = v
         self.driver = None
         self._options = UiAutomator2Options().load_capabilities(self.capabilities)
     

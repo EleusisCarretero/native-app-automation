@@ -10,6 +10,8 @@ apps:
   contacts:
   clock:
     app_package: "com.sec.android.app.clockpackage"
-    app_activity: "com.sec.android.app.clockpackage.ClockPackage"
+    app_activity: ".ClockPackage"
     noReset: True
+    fullReset: False
+    dontStopAppOnReset: True
 

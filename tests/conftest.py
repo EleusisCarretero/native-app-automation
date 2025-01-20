@@ -21,10 +21,8 @@ def driver(pytestconfig, app_data):
     noReset = app_data["noReset"]
 
     driver_manager = AppiumDriverManager(
-        app_package=app_package,
-        app_activity=app_activity,
         device_name=device_name,
-        noReset=noReset
+        **app_data,
     )
     driver_manager.start_driver()
     yield driver_manager
