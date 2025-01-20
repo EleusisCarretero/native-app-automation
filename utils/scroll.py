@@ -15,17 +15,17 @@ class Scroll:
         )
 
     @classmethod
-    def scroll_until(cls, looking_element, driver, locator, timeout=10, direction="down", percent=0.3):
-
-        start_time = time.time()
-        while time.time() < start_time + timeout:
+    def scroll_until(cls, looking_element, driver, locator, max_scrolls=60, direction="down", percent=0.3):
+        found_element = None
+        count_scroll = 1
+        while count_scroll <= max_scrolls:
             try:
-                # found_element = looking_element.find_element(AppiumBy.XPATH, "//android.widget.EditText[@resource-id='com.sec.android.app.clockpackage:id/numberpicker_input' and @text='7, Hour']")
                 found_element = looking_element.find_element(*locator)
                 break
             except:
-                # element has not been found yet
                 cls._scrolling(driver=driver,id=looking_element.id, direction=direction, percent=percent)
+            count_scroll += 1
         else:
             print("The element hasn't been found")
-        print(f"Element found {found_element}")
+        print(f"Element found")
+        return found_element
