@@ -61,6 +61,7 @@ class GalleryLocators:
 class ClockLocators:
     BASE_CLOCK_LOCATOR = "com.sec.android.app.clockpackage:id/{ele_id}"
     BASE_COLUMN_HOUR = "//android.widget.EditText[@resource-id='com.sec.android.app.clockpackage:id/numberpicker_input' and @text='{hour}, {what}']"
+    WEEK_DAY_BASE = "com.sec.android.app.clockpackage:id/repeat_{day_of_week}"
     @classmethod
     def get_add_new_alarm_locator(cls):
         return AppiumBy.ID, cls.BASE_CLOCK_LOCATOR.format(ele_id="menu_alarm_add")
@@ -87,5 +88,16 @@ class ClockLocators:
     
     @classmethod
     def get_meridian(cls):
+        return AppiumBy.XPATH, "//android.widget.LinearLayout[@resource-id='com.sec.android.app.clockpackage:id/sesl_timepicker_layout']/android.widget.NumberPicker"
+                                
+
+    
+    @classmethod
+    def get_sub_meridian(cls):
         return AppiumBy.XPATH, "//android.widget.TextView[@resource-id='com.sec.android.app.clockpackage:id/numberpicker_input']"
+    
+    
+    @classmethod
+    def get_week_day_locator(cls, day_of_week):
+        return AppiumBy.ID, cls.WEEK_DAY_BASE.format(day_of_week=day_of_week)
     

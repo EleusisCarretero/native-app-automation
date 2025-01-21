@@ -3,7 +3,7 @@ from time import sleep
 import pytest
 from appium.webdriver.common.appiumby import AppiumBy
 
-from apps.clock_app import AlarmColum
+from apps.clock_app import AlarmColum, WeekDays
 from tests.clock.base_test_clock import BaseTestClock
 from utils.tools import YamlManager
 
@@ -48,4 +48,7 @@ class TestAlarm(BaseTestClock):
         for column_time, type_column in [(hour, AlarmColum.HOUR), (minute, AlarmColum.MINUTE), (meridian, AlarmColum.MERIDIAN)]:
             what_is_set = self.clock_iface.scroll_alarm(column_time, type_column).split(",")[0]
             assert what_is_set == column_time, "The alarm column hasn't been set correctly"
+        # 3. Set week day
+        self.clock_iface.set_week_day(day_of_week=WeekDays(day.upper()))
+        sleep(2)
             
