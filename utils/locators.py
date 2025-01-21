@@ -59,9 +59,11 @@ class GalleryLocators:
         return (AppiumBy.XPATH, "//android.widget.TextView[@resource-id='com.sec.android.gallery3d:id/bold_value']")
 
 class ClockLocators:
+    BASE_ID_LOCATOR = "com.sec.android.app.clockpackage:id/"
     BASE_CLOCK_LOCATOR = "com.sec.android.app.clockpackage:id/{ele_id}"
     BASE_COLUMN_HOUR = "//android.widget.EditText[@resource-id='com.sec.android.app.clockpackage:id/numberpicker_input' and @text='{hour}, {what}']"
     WEEK_DAY_BASE = "com.sec.android.app.clockpackage:id/repeat_{day_of_week}"
+    
     @classmethod
     def get_add_new_alarm_locator(cls):
         return AppiumBy.ID, cls.BASE_CLOCK_LOCATOR.format(ele_id="menu_alarm_add")
@@ -80,7 +82,7 @@ class ClockLocators:
 
     @classmethod
     def get_alarm_columns_locator(cls):
-        return  AppiumBy.XPATH, "//android.widget.LinearLayout[@resource-id='com.sec.android.app.clockpackage:id/sesl_timepicker_hour_minute_layout']/android.widget.NumberPicker"
+        return  AppiumBy.XPATH, f"//android.widget.LinearLayout[@resource-id='{cls.BASE_CLOCK_LOCATOR.format(ele_id="sesl_timepicker_hour_minute_layout")}']/android.widget.NumberPicker"
 
     @classmethod
     def get_hours_element(cls, hour, what):
@@ -88,31 +90,25 @@ class ClockLocators:
     
     @classmethod
     def get_meridian(cls):
-        return AppiumBy.XPATH, "//android.widget.LinearLayout[@resource-id='com.sec.android.app.clockpackage:id/sesl_timepicker_layout']/android.widget.NumberPicker"
-                                
+        return AppiumBy.XPATH, f"//android.widget.LinearLayout[@resource-id='{cls.BASE_CLOCK_LOCATOR.format(ele_id="sesl_timepicker_layout")}']/android.widget.NumberPicker"             
     
     @classmethod
     def get_sub_meridian(cls):
-        return AppiumBy.XPATH, "//android.widget.TextView[@resource-id='com.sec.android.app.clockpackage:id/numberpicker_input']"
-    
+        return AppiumBy.XPATH, f"//android.widget.TextView[@resource-id='{cls.BASE_CLOCK_LOCATOR.format(ele_id="numberpicker_input")}']"
+
     @classmethod
     def get_week_day_locator(cls, day_of_week):
         return AppiumBy.ID, cls.WEEK_DAY_BASE.format(day_of_week=day_of_week)
     
     @classmethod
     def get_alarm_name_locator(cls):
-        	return AppiumBy.ID, "com.sec.android.app.clockpackage:id/alarm_name"
+        return AppiumBy.ID, cls.BASE_CLOCK_LOCATOR.format(ele_id="alarm_name")
 
     @classmethod
     def get_save_alarm_locator(cls):
-        return AppiumBy.ID, "com.sec.android.app.clockpackage:id/menu_done"
+        return AppiumBy.ID, cls.BASE_CLOCK_LOCATOR.format(ele_id="menu_done")
     
     @classmethod
     def get_alarms_list_locator(cls):
-        return AppiumBy.XPATH, "(//android.widget.FrameLayout[@resource-id='com.sec.android.app.clockpackage:id/alarm_list_cardView'])"
-    
-    # @classmethod
-    # def get_alarm_name_locator(cls):
-    #     return AppiumBy.ID, "com.sec.android.app.clockpackage:id/alarm_list_alarm_name"
-
-    
+        return AppiumBy.XPATH, f"(//android.widget.FrameLayout[@resource-id='{cls.BASE_CLOCK_LOCATOR.format(ele_id="alarm_list_cardView")}'])"  
+  
