@@ -98,6 +98,13 @@ class ClockApp(BaseApp):
     def get_alarm_list(self):
         return self.get_list_of_elements(ClockLocators.get_alarms_list_locator())
     
+    def find_alarm(self, alarm_name):
+        available_alarms = self.get_alarm_list()
+        for alarm in available_alarms:
+            if alarm.text == alarm_name:
+                return alarm
+        raise ClockAppError("Alarm not found")
+    
     def click_on_alarm(self, alarm):
         # self.click_app_button(alarm)
         alarm.click()
