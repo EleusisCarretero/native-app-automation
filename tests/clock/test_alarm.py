@@ -28,14 +28,13 @@ class TestAlarm(BaseTestClock):
     @pytest.fixture(autouse=True)
     def setup(self, driver, appium_server):
         super().setup(driver)
+        
 
     @pytest.mark.parametrize(
         ("day","time"),
         [
-            ("Monday","7:05 PM"),
-            # ("Friday","5:15 AM"),
-            # ("Wednesday","7:30 PM"),
-            # ("Sunday","6:16 PM")
+            # ("Monday","7:05 PM"),
+            ("Sunday","3:16 AM")
         ]
     )
     def test_one_time_alarm(self, day, time):
@@ -49,6 +48,6 @@ class TestAlarm(BaseTestClock):
             what_is_set = self.clock_iface.scroll_alarm(column_time, type_column).split(",")[0]
             assert what_is_set == column_time, "The alarm column hasn't been set correctly"
         # 3. Set week day
-        self.clock_iface.set_week_day(day_of_week=WeekDays(day.upper()))
-        sleep(2)
-            
+        self.clock_iface.set_week_day(day_of_week=WeekDays[day.upper()])
+        # 4. Get day is selected?
+        assert self.clock_iface.is_week_day_checked(day_of_week=WeekDays[day.upper()])

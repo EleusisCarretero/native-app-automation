@@ -100,5 +100,10 @@ class BaseApp:
             velocity=velocity,
             expand=expand,
             wait_time=wait_time)
+    
+    def get_check_button_status(self, locator):
+        check_obj = self.base_driver.find_elements(*locator)
+        return check_obj[0].is_selected
+
 
     # def scrolling(self, direction, start_point, increase):

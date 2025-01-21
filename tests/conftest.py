@@ -16,10 +16,6 @@ def driver(pytestconfig, app_data):
     """
     device_name = pytestconfig.getoption("device_name")
 
-    app_package = app_data["app_package"]
-    app_activity = app_data["app_activity"]
-    noReset = app_data["noReset"]
-
     driver_manager = AppiumDriverManager(
         device_name=device_name,
         **app_data,

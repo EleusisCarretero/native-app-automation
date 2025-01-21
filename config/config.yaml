@@ -11,7 +11,7 @@ apps:
   clock:
     app_package: "com.sec.android.app.clockpackage"
     app_activity: ".ClockPackage"
-    noReset: True
+    noReset: False
     fullReset: False
     dontStopAppOnReset: True
 

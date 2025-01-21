@@ -41,13 +41,27 @@ class ClockApp(BaseApp):
                 percent=0.3)
         else:
             meridian_column = self.get_list_of_elements(ClockLocators.get_meridian())[0]
-            found_element = Scroll.scroll_until(
-            looking_element=meridian_column,
-            driver=self.base_driver,
-            locator=ClockLocators.get_sub_meridian(),
-            direction="down",
-            percent=0.3,
-            specific_text=value)
+            try:
+                found_element = Scroll.scroll_until(
+                looking_element=meridian_column,
+                driver=self.base_driver,
+                locator=ClockLocators.get_sub_meridian(),
+                max_scrolls=2,
+                direction="down",
+                percent=0.3,
+                specific_text=value)
+            except:
+                try:
+                    found_element = Scroll.scroll_until(
+                    looking_element=meridian_column,
+                    driver=self.base_driver,
+                    locator=ClockLocators.get_sub_meridian(),
+                    max_scrolls=2,
+                    direction="up",
+                    percent=0.3,
+                    specific_text=value)
+                except:
+                    raise ClockAppError("Unable to found element")
         if found_element:
             return found_element.text
         raise ClockAppError("Unable to found element")
@@ -57,3 +71,8 @@ class ClockApp(BaseApp):
         #     raise ClockAppError("Not a valid week day")
         week_day_locator = ClockLocators.get_week_day_locator(day_of_week=day_of_week.value)
         self.click_app_button(week_day_locator)
+    
+    def is_week_day_checked(self, day_of_week):
+        week_day_locator = ClockLocators.get_week_day_locator(day_of_week=day_of_week.value)
+        return self.get_check_button_status(week_day_locator)
+

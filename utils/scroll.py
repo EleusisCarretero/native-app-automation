@@ -25,13 +25,13 @@ class Scroll:
                 found_element = looking_element.find_element(*locator)
                 if specific_text:
                     if specific_text == found_element.text:
-                        break
+                        return found_element
                     raise ScrollError("Continue")
-                break
+                return found_element
             except:
                 cls._scrolling(driver=driver,id=looking_element.id, direction=direction, percent=percent)
             count_scroll += 1
         else:
             print("The element hasn't been found")
-        print(f"Element found")
-        return found_element
+        raise ScrollError(f"Not found element")
+        
