@@ -1,4 +1,4 @@
-import time
+from time import sleep
 
 import pytest
 from appium.webdriver.common.appiumby import AppiumBy
@@ -30,19 +30,22 @@ class TestAlarm(BaseTestClock):
         super().setup(driver)
 
     @pytest.mark.parametrize(
-        ("day","hour"),
+        ("day","time"),
         [
-            ("Monday","7:30 AM"),
+            ("Monday","7:05 PM"),
             # ("Friday","5:15 AM"),
             # ("Wednesday","7:30 PM"),
             # ("Sunday","6:16 PM")
         ]
     )
-    def test_one_time_alarm(self, day, hour):
-        print(day, hour)
+    def test_one_time_alarm(self, day, time):
+        print(day, time)
+        hour, minute, meridian = time[0], time[2:4], time[-2:]
+        # 1. Click on add new alarm
         self.clock_iface.add_new_alarm()
-        # time.sleep(1)
-        # is_found = self.clock_iface.scroll_alarm(hour[0], AlarmColum.HOUR)
-        # print(is_found)
-        is_found = self.clock_iface.scroll_alarm(hour[2:4], AlarmColum.MINUTE)
-        print(is_found)
+        sleep(1)
+        # 2. Scroll the hours, minute and meridian
+        for column_time, type_column in [(hour, AlarmColum.HOUR), (minute, AlarmColum.MINUTE), (meridian, AlarmColum.MERIDIAN)]:
+            what_is_set = self.clock_iface.scroll_alarm(column_time, type_column).split(",")[0]
+            assert what_is_set == column_time, "The alarm column hasn't been set correctly"
+            

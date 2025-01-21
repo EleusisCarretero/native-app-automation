@@ -84,3 +84,8 @@ class ClockLocators:
     @classmethod
     def get_hours_element(cls, hour, what):
         return AppiumBy.XPATH, cls.BASE_COLUMN_HOUR.format(hour=hour, what=what)
+    
+    @classmethod
+    def get_meridian(cls):
+        return AppiumBy.XPATH, "//android.widget.TextView[@resource-id='com.sec.android.app.clockpackage:id/numberpicker_input']"
+    
