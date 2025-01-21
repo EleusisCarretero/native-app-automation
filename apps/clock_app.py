@@ -3,6 +3,7 @@ from apps.base_app import BaseApp
 from utils.locators import CamaraLocators, ClockLocators
 from utils.scroll import Scroll
 
+
 class AlarmColum(int, Enum):
     HOUR = 0
     MINUTE = 1
@@ -37,7 +38,7 @@ class ClockApp(BaseApp):
                 looking_element=alarm_columns[which_column],
                 driver=self.base_driver,
                 locator=ClockLocators.get_hours_element(hour=value, what=AlarmColum(which_column).name.title()),
-                direction="down",
+                direction=self.chose_direction(time_value=value, column_time=which_column),
                 percent=0.3)
         else:
             meridian_column = self.get_list_of_elements(ClockLocators.get_meridian())[0]
@@ -75,4 +76,32 @@ class ClockApp(BaseApp):
     def is_week_day_checked(self, day_of_week):
         week_day_locator = ClockLocators.get_week_day_locator(day_of_week=day_of_week.value)
         return self.get_check_button_status(week_day_locator)
+
+    @staticmethod
+    def chose_direction(time_value, column_time):
+        if column_time == AlarmColum.HOUR:
+            return "up" if int(time_value) < 6 else "down"
+        elif column_time == AlarmColum.MINUTE:
+            return "up" if int(time_value) > 30 else "down"
+        else:
+            raise ClockAppError("Not valid option")
+    
+    def write_alarm_name(self, alarm_name):
+        self.write_text_on_object(ClockLocators.get_alarm_name_locator(), alarm_name)
+    
+    def read_alarm_name(self):
+        return self.get_text(ClockLocators.get_alarm_name_locator())
+    
+    def save_alarm(self):
+        self.click_app_button(ClockLocators.get_save_alarm_locator())
+
+    def get_alarm_list(self):
+        return self.get_list_of_elements(ClockLocators.get_alarms_list_locator())
+    
+    def click_on_alarm(self, alarm):
+        # self.click_app_button(alarm)
+        alarm.click()
+
+
+
 

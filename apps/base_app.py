@@ -21,13 +21,14 @@ class BaseApp:
     def __init__(self, driver):
         self.base_driver = driver
     
-    def click_app_button(self, locator):
+    def click_app_button(self, locator, driver=None):
         """
         Click on the object that matches the 'locator'
 
         Args:
             locator (tuple): type of identifier (AppiumID), value to look for (str)
         """
+        driver = driver or self.base_driver
         button_obj = self.base_driver.find_element(*locator)
         button_obj.click()
 
@@ -104,6 +105,9 @@ class BaseApp:
     def get_check_button_status(self, locator):
         check_obj = self.base_driver.find_elements(*locator)
         return check_obj[0].is_selected
+    
+    def write_text_on_object(self, locator, text):
+        self.base_driver.find_element(*locator).send_keys(text)
 
 
     # def scrolling(self, direction, start_point, increase):

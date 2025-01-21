@@ -33,13 +33,14 @@ class TestAlarm(BaseTestClock):
     @pytest.mark.parametrize(
         ("day","time"),
         [
-            # ("Monday","7:05 PM"),
-            ("Sunday","3:16 AM")
+            ("Monday","7:05 PM"),
+            # ("Sunday","3:16 AM")
         ]
     )
     def test_one_time_alarm(self, day, time):
         print(day, time)
         hour, minute, meridian = time[0], time[2:4], time[-2:]
+        alarm_name = f"Alarm set on {day} at {time}"
         # 1. Click on add new alarm
         self.clock_iface.add_new_alarm()
         sleep(1)
@@ -51,3 +52,13 @@ class TestAlarm(BaseTestClock):
         self.clock_iface.set_week_day(day_of_week=WeekDays[day.upper()])
         # 4. Get day is selected?
         assert self.clock_iface.is_week_day_checked(day_of_week=WeekDays[day.upper()])
+        # 5. Set name
+        self.clock_iface.write_alarm_name(alarm_name)
+        sleep(1)
+        # 6. Save alarm
+        self.clock_iface.save_alarm()
+        # 7. Click on last alarm saved
+        obj_last_alarm = self.clock_iface.get_alarm_list()[-1]
+        self.clock_iface.click_on_alarm(obj_last_alarm)
+        # 8. compare name
+        assert alarm_name == self.clock_iface.read_alarm_name()

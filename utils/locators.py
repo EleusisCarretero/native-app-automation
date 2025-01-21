@@ -90,14 +90,25 @@ class ClockLocators:
     def get_meridian(cls):
         return AppiumBy.XPATH, "//android.widget.LinearLayout[@resource-id='com.sec.android.app.clockpackage:id/sesl_timepicker_layout']/android.widget.NumberPicker"
                                 
-
     
     @classmethod
     def get_sub_meridian(cls):
         return AppiumBy.XPATH, "//android.widget.TextView[@resource-id='com.sec.android.app.clockpackage:id/numberpicker_input']"
     
-    
     @classmethod
     def get_week_day_locator(cls, day_of_week):
         return AppiumBy.ID, cls.WEEK_DAY_BASE.format(day_of_week=day_of_week)
+    
+    @classmethod
+    def get_alarm_name_locator(cls):
+        	return AppiumBy.ID, "com.sec.android.app.clockpackage:id/alarm_name"
+
+    @classmethod
+    def get_save_alarm_locator(cls):
+        return AppiumBy.ID, "com.sec.android.app.clockpackage:id/menu_done"
+    
+    @classmethod
+    def get_alarms_list_locator(cls):
+        return AppiumBy.ID, "com.sec.android.app.clockpackage:id/alarm_list"
+
     
