@@ -109,6 +109,10 @@ class ClockLocators:
     
     @classmethod
     def get_alarms_list_locator(cls):
-        return AppiumBy.ID, "com.sec.android.app.clockpackage:id/alarm_list"
+        return AppiumBy.XPATH, "(//android.widget.FrameLayout[@resource-id='com.sec.android.app.clockpackage:id/alarm_list_cardView'])"
+    
+    # @classmethod
+    # def get_alarm_name_locator(cls):
+    #     return AppiumBy.ID, "com.sec.android.app.clockpackage:id/alarm_list_alarm_name"
 
     
