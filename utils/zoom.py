@@ -27,7 +27,8 @@ class ScriptCommands:
         Returns:
             tuple: command, parameters filled
         """
-        return self.name, {k:v.format(**kwargs) for k, v in self.params_commands.items()}
+        tmp_dict = {k:v.format(**kwargs) for k, v in self.params_commands.items()}
+        return self.name, tmp_dict
 
 
 class MobileCommands(ScriptCommands):
