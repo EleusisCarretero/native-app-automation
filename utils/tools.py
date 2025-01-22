@@ -49,5 +49,5 @@ class MathUtils:
         _hr, _min = str(increment).split(".")
         new_hr = current_time.hour + int(_hr)
         new_min = current_time.minute + int(_min)
-        current_time.replace(hour=new_hr, minute=new_min)
-        return current_time
+        dt_modified = current_time.replace(hour=new_hr, minute=new_min)
+        return dt_modified
