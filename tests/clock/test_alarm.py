@@ -94,6 +94,6 @@ class TestAlarm(BaseTestClock):
             assert current_column_time == column_time, f"The alarm column {type_column.name} hasn't been set correctly"
         # 4. Save alarm
         self.clock_iface.save_alarm()
-        sleep(45)
+        sleep(45)  #TODO: make a calculation based on the start time when the alarm time was set
         # 5. Dismiss alarm TODO: how to be sure that the alarm has been dismissed
         self.clock_iface.dismiss_alarm(max_tries=3)
