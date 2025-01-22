@@ -81,7 +81,7 @@ class TestAlarm(BaseTestClock):
         timestamp =  datetime.now(timezone.utc).timestamp()
         dt_object = datetime.fromtimestamp(timestamp)
         print(f"Current time {dt_object}")
-        new_dt_object = MathUtils.increment_current_time(dt_object, 0.1)
+        new_dt_object = MathUtils.increment_current_time(dt_object, 0.2)
         new_time = new_dt_object.strftime("%H:%M")
         _tmp_hour, minute = new_time.split(":")
         hour = str(int(_tmp_hour)) if int(_tmp_hour) < 12 else str(int(_tmp_hour) - 12)
