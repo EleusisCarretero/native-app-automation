@@ -37,16 +37,16 @@ class ClockApp(BaseApp):
             found_element = Scroll.scroll_until(
                 looking_element=alarm_columns[which_column],
                 driver=self.base_driver,
-                locator=ClockLocators.get_hours_element(hour=value, what=AlarmColum(which_column).name.title()),
+                locator=ClockLocators.get_hours_element_locator(hour_or_minute=value, column=AlarmColum(which_column).name.title()),
                 direction=self.chose_direction(time_value=value, column_time=which_column),
                 percent=0.3)
         else:
-            meridian_column = self.get_list_of_elements(ClockLocators.get_meridian())[0]
+            meridian_column = self.get_list_of_elements(ClockLocators.get_meridian_locator())[0]
             try:
                 found_element = Scroll.scroll_until(
                 looking_element=meridian_column,
                 driver=self.base_driver,
-                locator=ClockLocators.get_sub_meridian(),
+                locator=ClockLocators.get_sub_meridian_locator(),
                 max_scrolls=2,
                 direction="down",
                 percent=0.3,
@@ -56,7 +56,7 @@ class ClockApp(BaseApp):
                     found_element = Scroll.scroll_until(
                     looking_element=meridian_column,
                     driver=self.base_driver,
-                    locator=ClockLocators.get_sub_meridian(),
+                    locator=ClockLocators.get_sub_meridian_locator(),
                     max_scrolls=2,
                     direction="up",
                     percent=0.3,

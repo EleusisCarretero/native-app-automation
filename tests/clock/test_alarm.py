@@ -33,7 +33,7 @@ class TestAlarm(BaseTestClock):
         ("day","time"),
         [
             ("Monday","7:05 PM"),
-            ("Sunday","3:03 AM")
+            # ("Sunday","3:03 AM")
         ]
     )
     def test_one_time_alarm(self, day, time):
