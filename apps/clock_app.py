@@ -1,8 +1,10 @@
 """
 Clock app class and others relative classes
 """
+from time import sleep
 from enum import Enum
 from apps.base_app import BaseApp, BaseAppError
+from utils.click import ClickError
 from utils.locators import ClockLocators
 from utils.scroll import ScrollDirection
 
@@ -26,6 +28,11 @@ class WeekDays(int, Enum):
     FRIDAY = 5
     SATURDAY = 6
 
+
+class AlarmAlertCoo(Enum):
+    """Alarm alert coordinates"""
+    DISMISS = {'x': 307, 'y': 377}
+    SNOOZE = {'x': 770, 'y': 380}
 
 class ClockAppError(Exception):
     """ClockApp error class"""
@@ -166,3 +173,22 @@ class ClockApp(BaseApp):
         list_of_alarms = self.get_alarm_list()
         obj_last_alarm = list_of_alarms[pos_alarm]
         obj_last_alarm.click()
+
+    def dismiss_alarm(self, max_tries=1):
+        """
+        Method to dismiss alert when alarm has been activated
+        """
+        while max_tries > 0:
+            try:
+                self.click_by_coordinates(**AlarmAlertCoo.DISMISS.value)
+                break
+            except ClickError as e:
+                max_tries -= 1
+                sleep(5)
+
+    
+    def snooze_alarm(self):
+        """
+        Method to snooze alert when alarm has been activated
+        """
+        self.click_by_coordinates(**AlarmAlertCoo.SNOOZE.value)
