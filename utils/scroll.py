@@ -41,7 +41,7 @@ class Scroll:
         Returns:
             Webdriver: Element found which covers the conditions
         
-        Exception:
+        Raises:
             ScrollError: The element haven't been found.
         """
         found_element = None
