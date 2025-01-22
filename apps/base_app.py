@@ -1,6 +1,7 @@
 """
 Base class file
 """
+from utils.click import Click
 from utils.scroll import Scroll, ScrollError, ScrollDirection
 from utils.zoom import Zoom
 
@@ -154,3 +155,13 @@ class BaseApp:
                     specific_text=specific_text)
         except ScrollError as e:
             raise BaseAppError("Unable to scroll element until the desired conditions") from e
+        
+    def click_by_coordinates(self, x, y):
+        """
+        Method to make a click on a specific coordinate
+
+        Args:
+            x(int): x coordinate
+            y(int): y coordinate
+        """
+        Click.tap_on_coordinate(self.base_driver, x, y)
