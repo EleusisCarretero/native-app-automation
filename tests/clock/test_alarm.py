@@ -1,10 +1,12 @@
 """
 Test alarm file
 """
+from datetime import datetime, timezone
+from time import sleep
 import pytest
 from apps.clock_app import AlarmColumn, WeekDays
 from tests.clock.base_test_clock import BaseTestClock
-from utils.tools import YamlManager
+from utils.tools import MathUtils, YamlManager
 
 
 @pytest.fixture(scope="class")
@@ -72,3 +74,26 @@ class TestAlarm(BaseTestClock):
         self.clock_iface.click_on_alarm(pos_alarm)
         # 8. Compare the alarm name with the name that used previously to named
         assert alarm_name == self.clock_iface.read_alarm_name(), "The alarm name hasn't been saved with the correct name"
+
+    def test_dismiss_activated_alarm(self):
+        self.clock_iface.base_driver.implicitly_wait(2)  #Set global timeout to 1 seconds
+        # 1. Read current time
+        timestamp =  datetime.now(timezone.utc).timestamp()
+        dt_object = datetime.fromtimestamp(timestamp)
+        print(f"Current time {dt_object}")
+        new_dt_object = MathUtils.increment_current_time(dt_object, 0.1)
+        new_time = new_dt_object.strftime("%H:%M")
+        _tmp_hour, minute = new_time.split(":")
+        hour = str(int(_tmp_hour)) if int(_tmp_hour) < 12 else str(int(_tmp_hour) - 12)
+        meridian = "AM" if int(_tmp_hour) < 12 else "PM"
+        # 2. New alarm
+        self.clock_iface.add_new_alarm()
+        # 3. Set the alarm time
+        for column_time, type_column in [(hour, AlarmColumn.HOUR), (minute, AlarmColumn.MINUTE), (meridian, AlarmColumn.MERIDIAN)]:
+            current_column_time = self.clock_iface.scroll_alarm(column_time, type_column).split(",")[0]
+            assert current_column_time == column_time, f"The alarm column {type_column.name} hasn't been set correctly"
+        # 4. Save alarm
+        self.clock_iface.save_alarm()
+        sleep(45)
+        # 5. Dismiss alarm TODO: how to be sure that the alarm has been dismissed
+        self.clock_iface.dismiss_alarm(max_tries=3)
