@@ -1,5 +1,8 @@
+"""
+Test alarm file
+"""
 import pytest
-from apps.clock_app import AlarmColum, WeekDays
+from apps.clock_app import AlarmColumn, WeekDays
 from tests.clock.base_test_clock import BaseTestClock
 from utils.tools import YamlManager
 
@@ -53,7 +56,7 @@ class TestAlarm(BaseTestClock):
         # 1. Click on add new alarm
         self.clock_iface.add_new_alarm()
         # 2. Scroll the hours, minute and meridian
-        for column_time, type_column in [(hour, AlarmColum.HOUR), (minute, AlarmColum.MINUTE), (meridian, AlarmColum.MERIDIAN)]:
+        for column_time, type_column in [(hour, AlarmColumn.HOUR), (minute, AlarmColumn.MINUTE), (meridian, AlarmColumn.MERIDIAN)]:
             current_column_time = self.clock_iface.scroll_alarm(column_time, type_column).split(",")[0]
             assert current_column_time == column_time, f"The alarm column {type_column.name} hasn't been set correctly"
         # 3. Set week day

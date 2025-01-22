@@ -1,15 +1,23 @@
+"""
+Clock app class and others relative classes
+"""
 from enum import Enum
-from apps.base_app import BaseApp
-from utils.locators import CamaraLocators, ClockLocators
-from utils.scroll import Scroll, ScrollDirection, ScrollError
+from apps.base_app import BaseApp, BaseAppError
+from utils.locators import ClockLocators
+from utils.scroll import ScrollDirection
 
 
-class AlarmColum(int, Enum):
+class AlarmColumn(int, Enum):
+    """Alarm column enumerator"""
     HOUR = 0
     MINUTE = 1
     MERIDIAN = 2
 
+
 class WeekDays(int, Enum):
+    """
+    Week days enumerator with num positional reference
+    """
     SUNDAY = 0
     MONDAY = 1
     TUESDAY = 2
@@ -39,14 +47,14 @@ class ClockApp(BaseApp):
 
         Args:
             value(str): Hour, minute, or AM/PM value to set the column.
-            which_column(AlarmColum): identifier for the desired column to scroll. 
+            which_column(AlarmColumn): identifier for the desired column to scroll. 
         """
         found_element = None
-        if which_column != AlarmColum.MERIDIAN:
+        if which_column != AlarmColumn.MERIDIAN:
             alarm_columns = self.get_list_of_elements(ClockLocators.get_alarm_columns_locator())
             found_element = self.scrolling(
                 looking_element=alarm_columns[which_column],
-                locator=ClockLocators.get_hours_element_locator(hour_or_minute=value, column=AlarmColum(which_column).name.title()),
+                locator=ClockLocators.get_hours_element_locator(hour_or_minute=value, column=AlarmColumn(which_column).name.title()),
                 direction=self.chose_direction(time_value=value, column_time=which_column),
             )
         else:
@@ -61,36 +69,12 @@ class ClockApp(BaseApp):
                         direction=direction,
                         specific_text=value)
                     break
-                except ClockAppError:
+                except BaseAppError:
                     print(f"Unable to found the desired element by {direction}")
+                    continue
         if found_element:
             return found_element.text
-        raise ClockAppError("Unable to found element")
-
-    def scrolling(self, looking_element, locator, max_scrolls=60, direction=ScrollDirection.DOWN.value, specific_text=""):
-        """
-        Method to scrolling in the current clock screen.
-
-        Args:
-            looking_element (): App element to look for the desired value and scrolling
-            locator(tuple): Couple of values to look for the desired element
-            max_scrolls(int): number of max scrolls until stop if the element hasn't been found
-            direction(ScrollDirection): direction of scroll, up or down
-        
-        Raises:
-            ScrollError: element not found after scrolling
-        """
-        try:
-            return Scroll.scroll_until(
-                    looking_element=looking_element,
-                    driver=self.base_driver,
-                    locator=locator,
-                    max_scrolls=max_scrolls,
-                    direction=direction,
-                    percent=0.3,
-                    specific_text=specific_text)
-        except ScrollError as e:
-            raise ClockAppError("Unable to scroll element until the desired conditions") from e
+        raise BaseAppError("Unable to found element")
 
     def set_week_day(self, day_of_week):
         """
@@ -127,17 +111,17 @@ class ClockApp(BaseApp):
 
         Args:
             time_value(str): Time value, hours or minute
-            column_time(AlarmColum): position of the column, hour or minute
+            column_time(AlarmColumn): position of the column, hour or minute
 
         Returns:
             ScrollDirection: better scroll direction
         
         Raises:
-            ClockAppError: If the column_time is not a valid option inside of AlarmColum
+            ClockAppError: If the column_time is not a valid option inside of AlarmColumn
         """
-        if column_time == AlarmColum.HOUR:
+        if column_time == AlarmColumn.HOUR:
             return ScrollDirection.UP.value if int(time_value) < 6 else ScrollDirection.DOWN.value
-        elif column_time == AlarmColum.MINUTE:
+        elif column_time == AlarmColumn.MINUTE:
             return ScrollDirection.UP.value if int(time_value) > 30 else ScrollDirection.DOWN.value
         else:
             raise ClockAppError("Not valid option")

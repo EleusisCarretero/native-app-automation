@@ -1,3 +1,6 @@
+"""
+Scroll gesture class and relate items
+"""
 from enum import Enum
 from utils.zoom import MobileCommands
 
@@ -16,7 +19,7 @@ class Scroll:
     """
     Gesture class to scroll in the app screen
     """
-    SCROLL_STEP = MobileCommands(f"scrollGesture", elementId='{id}', direction='{direction}', percent='{percent}')
+    SCROLL_STEP = MobileCommands("scrollGesture", elementId='{id}', direction='{direction}', percent='{percent}')
 
     @classmethod
     def _scrolling(cls, driver, **kwargs):
@@ -54,9 +57,7 @@ class Scroll:
                         return found_element
                     raise ScrollError("Continue")
                 return found_element
-            except:
+            except Exception as e:
                 cls._scrolling(driver=driver,id=looking_element.id, direction=direction, percent=percent)
             count_scroll += 1
-        else:
-            print("The element hasn't been found")
         raise ScrollError(f"Not found element")
