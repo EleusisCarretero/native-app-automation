@@ -175,8 +175,10 @@ class ClockApp(BaseApp):
         """
         return self.get_list_of_elements(ClockLocators.get_alarms_list_locator())
     
-    def click_on_alarm(self, alarm):
+    def click_on_alarm(self, pos_alarm):
         """
         Click on the specif alarm
         """
-        alarm.click()
+        list_of_alarms = self.get_alarm_list()
+        obj_last_alarm = list_of_alarms[pos_alarm]
+        obj_last_alarm.click()

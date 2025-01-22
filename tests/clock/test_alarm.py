@@ -66,8 +66,6 @@ class TestAlarm(BaseTestClock):
         self.clock_iface.save_alarm()
         # 7. Click on last alarm saved
         pos_alarm = -1 if int(hour) > 6 else 0
-        list_of_alarms = self.clock_iface.get_alarm_list()
-        obj_last_alarm = list_of_alarms[pos_alarm]
-        self.clock_iface.click_on_alarm(obj_last_alarm)
+        self.clock_iface.click_on_alarm(pos_alarm)
         # 8. Compare the alarm name with the name that used previously to named
         assert alarm_name == self.clock_iface.read_alarm_name(), "The alarm name hasn't been saved with the correct name"
