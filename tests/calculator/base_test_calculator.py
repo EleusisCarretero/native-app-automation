@@ -12,11 +12,6 @@ class BaseTestCalculator(BaseTest):
     Attributes:
         cal_iface(CalculatorApp): instance of calculator interface.
     """
-
-    def __init__(self):
-        super().__init__()
-        self.cal_iface = None
-
     def setup(self, driver):
         super().setup(driver=driver)
         self.cal_iface = CalculatorApp(self.driver_manager.driver)

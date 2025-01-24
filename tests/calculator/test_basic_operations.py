@@ -1,3 +1,6 @@
+"""
+Test basic operations file
+"""
 import pytest
 from tests.calculator.base_test_calculator import BaseTestCalculator
 from utils.tools import YamlManager, MathUtils
@@ -12,6 +15,15 @@ def app_data():
 
 
 def sequenced_operation(type_of_op):
+    """
+    Function to assign the corresponding parametrized params
+
+    Args:
+        type_of_op(str): desired operation type
+
+    Return:
+        Tuple: corresponding parameters.
+    """
 
     return {
         "simple_add":  [
@@ -43,7 +55,9 @@ def sequenced_operation(type_of_op):
 
 
 class TestBasicOperations(BaseTestCalculator):
-
+    """
+    Test basic calculator operations class
+    """
     @pytest.fixture(autouse=True)
     def setup(self, driver):
         super().setup(driver)
@@ -127,6 +141,13 @@ class TestBasicOperations(BaseTestCalculator):
         [9, 1, 6]
     )
     def test_unit_percentage(self, value):
+        """
+        Test case to evaluate percentage figure is working by convertin a
+        number in percentage.
+
+        Args:
+            value(int): value to convert in percentage
+        """
         self.cal_iface.tap_num(value)
         self.cal_iface.percentage()
         self.cal_iface.equals_to()
@@ -134,7 +155,11 @@ class TestBasicOperations(BaseTestCalculator):
         assert str(value / 100) == actual_percentage
 
     def test_bigger_that_units_numbers(self):
+        """
+        Test case to check the basic arithmetic operation over a number bigger than a unit.
+        """
         list_numbers = [123,98,345,736]
         operations = ["+" for _ in range(len(list_numbers) - 1)]
         res = self.cal_iface.large_seq_operation(list_numbers,operations)
         print(res)
+        assert res

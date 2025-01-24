@@ -14,4 +14,3 @@ apps:
     noReset: False
     fullReset: False
     dontStopAppOnReset: True
-
