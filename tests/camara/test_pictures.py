@@ -1,11 +1,13 @@
+"""
+Test picture file
+"""
 import re
 import time
-from datetime import datetime, timezone
 import pytest
+from datetime import datetime, timezone
 from apps.gallery_app import GalleryApp
 from tests.camara.base_test_camara import BaseTestCamara, CameraType
 from utils.tools import YamlManager
-
 
 
 @pytest.fixture(scope="class")
@@ -16,11 +18,16 @@ def app_data():
     return YamlManager.get_yaml_file_data("config\config.yaml")["apps"]["camera"]
 
 class TestPictures(BaseTestCamara):
+    """
+    Test picture class
+
+    Attributes:
+        gallery_iface(GalleryApp): instance to interface gallery app
+    """
     @pytest.fixture(autouse=True)
     def setup(self, driver):
         super().setup(driver)
         self.gallery_iface = GalleryApp(self.driver_manager.driver)
-
 
     @pytest.mark.parametrize(
         ("camera_type"),
@@ -72,6 +79,12 @@ class TestPictures(BaseTestCamara):
         ]
     )
     def test_make_zoom(self, camera_type):
+        """
+        Test class to check zoom in the different cameras. TODO: missing assertions
+
+        Args:
+            camera_type(CameraType): Type of camera
+        """
         if camera_type == CameraType.FRONTAL:
             self.camara_iface.switch_camera()
         self.camara_iface.zoom_camera(percentage=0.75, velocity=1.0, expand=True)
