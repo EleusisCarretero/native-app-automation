@@ -24,6 +24,7 @@ def appium_settings():
     return ['--port', '4723', '--log-level', 'debug']
 
 
+@pytest.mark.Clock
 class TestAlarm(BaseTestClock):
     """
     Test class to evaluate alarm fixture
@@ -34,6 +35,7 @@ class TestAlarm(BaseTestClock):
         super().setup(driver)
         
 
+    @pytest.mark.Regression
     @pytest.mark.parametrize(
         ("day","time"),
         [
@@ -75,7 +77,11 @@ class TestAlarm(BaseTestClock):
         # 8. Compare the alarm name with the name that used previously to named
         assert alarm_name == self.clock_iface.read_alarm_name(), "The alarm name hasn't been saved with the correct name"
 
+    @pytest.mark.Smoke
     def test_dismiss_activated_alarm(self):
+        """
+        Test case to check if a previously created is activated in the expected time
+        """
         self.clock_iface.base_driver.implicitly_wait(2)  #Set global timeout to 1 seconds
         # 1. Read current time
         timestamp =  datetime.now(timezone.utc).timestamp()
