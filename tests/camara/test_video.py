@@ -14,6 +14,7 @@ def app_data():
     return YamlManager.get_yaml_file_data("config\config.yaml")["apps"]["camera"]
 
 
+@pytest.mark.Camera
 class TestRecordVideo(BaseTestCamera):
 
     @pytest.fixture(autouse=True)
@@ -22,6 +23,7 @@ class TestRecordVideo(BaseTestCamera):
         self.gallery_iface = GalleryApp(self.driver_manager.driver)
         self.camera_iface.change_to_video()
 
+    @pytest.mark.Sanity
     @pytest.mark.parametrize(
         ("camera_type", "record_time", "pauses"),
         [

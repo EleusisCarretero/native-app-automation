@@ -17,6 +17,8 @@ def app_data():
     """
     return YamlManager.get_yaml_file_data("config\config.yaml")["apps"]["camera"]
 
+
+@pytest.mark.Camera
 class TestPictures(BaseTestCamera):
     """
     Test picture class
@@ -27,8 +29,8 @@ class TestPictures(BaseTestCamera):
     @pytest.fixture(autouse=True)
     def setup(self, driver):
         super().setup(driver)
-        self.gallery_iface = GalleryApp(self.driver_manager.driver)
 
+    @pytest.mark.Smoke
     @pytest.mark.parametrize(
         ("camera_type"),
         [
@@ -71,6 +73,7 @@ class TestPictures(BaseTestCamera):
         # 7. Check date matches TODO: correct date format
         #TODO: assert expected_time == current_picture_date
 
+    @pytest.mark.Sanity
     @pytest.mark.parametrize(
         ("camera_type"),
         [
