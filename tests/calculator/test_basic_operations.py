@@ -54,6 +54,7 @@ def sequenced_operation(type_of_op):
     }.get(type_of_op, None)
 
 
+@pytest.mark.Calculator
 class TestBasicOperations(BaseTestCalculator):
     """
     Test basic calculator operations class
@@ -62,6 +63,7 @@ class TestBasicOperations(BaseTestCalculator):
     def setup(self, driver):
         super().setup(driver)
 
+    @pytest.mark.Smoke
     @pytest.mark.parametrize(
             ("number"), sequenced_operation("simple_add")
     )
@@ -77,6 +79,7 @@ class TestBasicOperations(BaseTestCalculator):
         result = self.cal_iface.single_seq_operation(num=number, operations=operations)
         assert int(result) == MathUtils.arithmetic_operation_seq_number(number, operations)
 
+    @pytest.mark.Sanity
     @pytest.mark.parametrize(
             ("number"), sequenced_operation("simple_sub")
     )
@@ -92,6 +95,7 @@ class TestBasicOperations(BaseTestCalculator):
         result = self.cal_iface.single_seq_operation(num=number, operations=operations)
         assert int(result) == MathUtils.arithmetic_operation_seq_number(number, operations)
 
+    @pytest.mark.Sanity
     @pytest.mark.parametrize(
             ("number"), sequenced_operation("simple_mul")
     )
@@ -107,6 +111,7 @@ class TestBasicOperations(BaseTestCalculator):
         result = self.cal_iface.single_seq_operation(num=number, operations=operations)
         assert float(result) == MathUtils.arithmetic_operation_seq_number(number, operations)
 
+    @pytest.mark.Sanity
     @pytest.mark.parametrize(
             ("number"), sequenced_operation("simple_div")
     )
@@ -122,6 +127,7 @@ class TestBasicOperations(BaseTestCalculator):
         result = self.cal_iface.single_seq_operation(num=number, operations=operations)
         assert round(float(result), 9) == round(MathUtils.arithmetic_operation_seq_number(number, operations), 9)
 
+    @pytest.mark.Soak
     @pytest.mark.parametrize(
             ("number", "operations"), sequenced_operation("simple_ops")
     )
@@ -136,6 +142,7 @@ class TestBasicOperations(BaseTestCalculator):
         print(f"Result: {result}")
         assert round(float(result), 9) == round(MathUtils.arithmetic_operation_seq_number(number, operations), 9)
 
+    @pytest.mark.Smoke
     @pytest.mark.parametrize(
         ("value"),
         [9, 1, 6]
@@ -154,6 +161,7 @@ class TestBasicOperations(BaseTestCalculator):
         actual_percentage = self.cal_iface.result()
         assert str(value / 100) == actual_percentage
 
+    @pytest.mark.Smoke
     def test_bigger_that_units_numbers(self):
         """
         Test case to check the basic arithmetic operation over a number bigger than a unit.
