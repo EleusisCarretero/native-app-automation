@@ -1,8 +1,9 @@
+"""
+Test video test file
+"""
 import time
-
 import pytest
 from tests.camara.base_test_camara import BaseTestCamera, CameraType
-from apps.gallery_app import GalleryApp
 from utils.tools import YamlManager
 
 
@@ -34,6 +35,14 @@ class TestRecordVideo(BaseTestCamera):
         ]
     )
     def test_record_video(self, camera_type, record_time, pauses):
+        """
+        Test case to record video, making some pauses, and re enable, either frontal or normal camera
+
+        Args:
+            camera_type(CameraType): Type of camera, Frontal or Normal
+            record_time(float): Time in seconds to record
+            pauses(int/float): Time in seconds to perform pauses between recordings
+        """
         if camera_type == CameraType.FRONTAL:
             self.camera_iface.switch_camera()
 
