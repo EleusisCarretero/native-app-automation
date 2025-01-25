@@ -1,4 +1,4 @@
-from wsgiref.util import request_uri
+
 
 from appium.webdriver.common.appiumby import AppiumBy
 
@@ -17,7 +17,7 @@ class CalculatorLocators:
     def get_result(cls):
         return (AppiumBy.ID, cls.RESULT_ID)
 
-class CamaraLocators:
+class CameraLocators:
     BASE_ID_BTTNS = "com.sec.android.app.camera:id/{button}"
     @classmethod
     def get_take_picture_locator(cls):
