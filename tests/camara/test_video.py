@@ -20,7 +20,7 @@ class TestRecordVideo(BaseTestCamera):
     def setup(self, driver):
         super().setup(driver)
         self.gallery_iface = GalleryApp(self.driver_manager.driver)
-        self.camara_iface.change_to_video()
+        self.camera_iface.change_to_video()
 
     @pytest.mark.parametrize(
         ("camera_type", "record_time", "pauses"),
@@ -31,12 +31,12 @@ class TestRecordVideo(BaseTestCamera):
     )
     def test_record_video(self, camera_type, record_time, pauses):
         if camera_type == CameraType.FRONTAL:
-            self.camara_iface.switch_camera()
+            self.camera_iface.switch_camera()
 
         # start to record
-        self.camara_iface.take_picture()
+        self.camera_iface.take_picture()
         current_time = time.time()
         while  time.time() < current_time + record_time:
             time.sleep(pauses)
-            self.camara_iface.pause_recording()
-        self.camara_iface.stop_recording()
+            self.camera_iface.pause_recording()
+        self.camera_iface.stop_recording()

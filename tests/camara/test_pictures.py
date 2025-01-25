@@ -46,12 +46,12 @@ class TestPictures(BaseTestCamera):
             camera_type (CameraType) : Camera type, Frontal or Normal
         """
         if camera_type == CameraType.FRONTAL:
-            self.camara_iface.switch_camera()
+            self.camera_iface.switch_camera()
         # variables definition
         pattern_date = r'\b(?:January|February|March|April|May|June|July|August|September|October|November|December)\b (?:[0-2]?\d|3[01]), \d\d\d\dㆍ(?:1[0-2]|0?[1-9]):[0-5][0-9]\u202F[AP]M'
-        self.camara_iface.base_driver.implicitly_wait(30)
+        self.camera_iface.base_driver.implicitly_wait(30)
         # 1. Take picture
-        self.camara_iface.take_picture()
+        self.camera_iface.take_picture()
         # 2. Get current timestamp when picture has been taken
         timestamp = datetime.now(timezone.utc).timestamp()
         dt_object = datetime.fromtimestamp(timestamp)
@@ -59,7 +59,7 @@ class TestPictures(BaseTestCamera):
         print(f"Expected date: {expected_time}")
         # 3. Click on last picture button
         time.sleep(2)
-        self.camara_iface.see_last_picture()
+        self.camera_iface.see_last_picture()
         # 4. since gallery click on info button
         self.gallery_iface.click_info_button()
         # 5. Get date from the current picture
@@ -86,12 +86,12 @@ class TestPictures(BaseTestCamera):
             camera_type(CameraType): Type of camera
         """
         if camera_type == CameraType.FRONTAL:
-            self.camara_iface.switch_camera()
-        self.camara_iface.zoom_camera(percentage=0.75, velocity=1.0, expand=True)
+            self.camera_iface.switch_camera()
+        self.camera_iface.zoom_camera(percentage=0.75, velocity=1.0, expand=True)
         time.sleep(1)
-        self.camara_iface.zoom_camera(percentage=0.60, velocity=1.0, expand=False)
+        self.camera_iface.zoom_camera(percentage=0.60, velocity=1.0, expand=False)
         time.sleep(1)
-        self.camara_iface.stepping_zoom_camera(stepping=0.05,percentage=0.15, velocity=1.0, expand=True)
+        self.camera_iface.stepping_zoom_camera(stepping=0.05,percentage=0.15, velocity=1.0, expand=True)
         time.sleep(3)
-        self.camara_iface.take_picture()
+        self.camera_iface.take_picture()
         time.sleep(2)

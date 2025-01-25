@@ -16,8 +16,8 @@ class BaseTestCamera(BaseTest):
     Paren of all test camera classes
 
     Attributes:
-        camara_iface(CamaraApp): instance interface for app
+        camera_iface(CamaraApp): instance interface for app
     """
     def setup(self, driver):
         super().setup(driver)
-        self.camara_iface = CamaraApp(self.driver_manager.driver)
+        self.camera_iface = CamaraApp(self.driver_manager.driver)
