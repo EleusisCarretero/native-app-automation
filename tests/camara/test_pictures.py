@@ -6,7 +6,7 @@ import time
 import pytest
 from datetime import datetime, timezone
 from apps.gallery_app import GalleryApp
-from tests.camara.base_test_camara import BaseTestCamara, CameraType
+from tests.camara.base_test_camara import BaseTestCamera, CameraType
 from utils.tools import YamlManager
 
 
@@ -17,7 +17,7 @@ def app_data():
     """
     return YamlManager.get_yaml_file_data("config\config.yaml")["apps"]["camera"]
 
-class TestPictures(BaseTestCamara):
+class TestPictures(BaseTestCamera):
     """
     Test picture class
 

@@ -1,5 +1,5 @@
 """
-BaseTestCamara file and relates
+BaseTestCamera file and relates
 """
 from enum import Enum
 from apps.camara_app import CamaraApp
@@ -11,7 +11,7 @@ class CameraType(str, Enum):
     FRONTAL = "Frontal"
     NORMAL = "Normal"
 
-class BaseTestCamara(BaseTest):
+class BaseTestCamera(BaseTest):
     """
     Paren of all test camera classes
 

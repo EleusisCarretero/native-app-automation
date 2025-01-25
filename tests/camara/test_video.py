@@ -1,7 +1,7 @@
 import time
 
 import pytest
-from tests.camara.base_test_camara import BaseTestCamara, CameraType
+from tests.camara.base_test_camara import BaseTestCamera, CameraType
 from apps.gallery_app import GalleryApp
 from utils.tools import YamlManager
 
@@ -14,7 +14,7 @@ def app_data():
     return YamlManager.get_yaml_file_data("config\config.yaml")["apps"]["camera"]
 
 
-class TestRecordVideo(BaseTestCamara):
+class TestRecordVideo(BaseTestCamera):
 
     @pytest.fixture(autouse=True)
     def setup(self, driver):
