@@ -49,9 +49,9 @@ class Zoom:
     """
     Class Zoom to control the expansion and reduction in a screen
     """
-    ZOOM_AND_EXPAND = MobileCommands(f"pinchOpenGesture", elementId='{id}', percent='{percentage}',
+    ZOOM_AND_EXPAND = MobileCommands("pinchOpenGesture", elementId='{id}', percent='{percentage}',
                                      velocity='{velocity}')
-    ZOOM_AND_REDUCE = MobileCommands(f"pinchCloseGesture", elementId='{id}', percent='{percentage}',
+    ZOOM_AND_REDUCE = MobileCommands("pinchCloseGesture", elementId='{id}', percent='{percentage}',
                                      velocity='{velocity}')
 
     @classmethod
@@ -74,7 +74,7 @@ class Zoom:
                 *command.command(id=id, percentage=percentage, velocity=velocity)
             )
         except Exception as e:
-            raise ZoomError("Unable to make zoom on selected element")
+            raise ZoomError("Unable to make zoom on selected element") from e
 
     @classmethod
     def make_zoom(cls, driver, locator, percentage=0.5, velocity=1.0, expand=True):

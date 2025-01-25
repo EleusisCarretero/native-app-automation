@@ -57,7 +57,7 @@ class Scroll:
                         return found_element
                     raise ScrollError("Continue")
                 return found_element
-            except Exception as e:
+            except Exception:
                 cls._scrolling(driver=driver,id=looking_element.id, direction=direction, percent=percent)
             count_scroll += 1
-        raise ScrollError(f"Not found element")
+        raise ScrollError("Not found element")
