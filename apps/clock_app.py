@@ -141,7 +141,7 @@ class ClockApp(BaseApp):
             alarm_name(str): Name of the new alarm
         """
         self.write_text_on_object(ClockLocators.get_alarm_name_locator(), alarm_name)
-    
+
     def read_alarm_name(self):
         """
         Method to read the current alarm name
@@ -150,7 +150,7 @@ class ClockApp(BaseApp):
             str: current alarm name
         """
         return self.get_text(ClockLocators.get_alarm_name_locator())
-    
+
     def save_alarm(self):
         """
         Save the new alarm
@@ -165,7 +165,7 @@ class ClockApp(BaseApp):
             list: list of current alarms
         """
         return self.get_list_of_elements(ClockLocators.get_alarms_list_locator())
-    
+
     def click_on_alarm(self, pos_alarm):
         """
         Click on the specif alarm
@@ -182,10 +182,9 @@ class ClockApp(BaseApp):
             try:
                 self.click_by_coordinates(**AlarmAlertCoo.DISMISS.value)
                 break
-            except ClickError as e:
+            except ClickError:
                 max_tries -= 1
                 sleep(5)
-
     
     def snooze_alarm(self):
         """
