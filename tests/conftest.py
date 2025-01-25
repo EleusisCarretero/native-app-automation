@@ -1,3 +1,6 @@
+"""
+Pytest conftest file
+"""
 import pytest
 from utils.driver import AppiumDriverManager
 from appium.webdriver.appium_service import AppiumService
@@ -6,8 +9,11 @@ from appium.webdriver.appium_service import AppiumService
 def pytest_addoption(parser):
     """
     Defines the costume console inputs to run the tests
+
+    device_name: Device name
     """
     parser.addoption("--device_name", action="store", default="Galaxy A33", help="Device name")
+
 
 @pytest.fixture(scope="function")
 def driver(pytestconfig, app_data):
@@ -24,8 +30,15 @@ def driver(pytestconfig, app_data):
     yield driver_manager
     driver_manager.stop_driver()
 
+
 @pytest.fixture(scope="class")
 def appium_server(appium_settings):
+    """
+    Initialize the Appium server
+
+    Args:
+        appium_settings(list): List of Appium server options
+    """
     appium_service = AppiumService()
     appium_service.start(args=appium_settings)
     if appium_service.is_running:
@@ -35,4 +48,3 @@ def appium_server(appium_settings):
 
     if not appium_service.is_running:
         print("Appium server has stopped.")
-
