@@ -16,11 +16,13 @@ def app_data():
 
 @pytest.mark.Camera
 class TestRecordVideo(BaseTestCamera):
+    """
+    Record vide test class
+    """
 
     @pytest.fixture(autouse=True)
     def setup(self, driver):
         super().setup(driver)
-        self.gallery_iface = GalleryApp(self.driver_manager.driver)
         self.camera_iface.change_to_video()
 
     @pytest.mark.Sanity

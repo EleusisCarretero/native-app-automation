@@ -22,9 +22,6 @@ def app_data():
 class TestPictures(BaseTestCamera):
     """
     Test picture class
-
-    Attributes:
-        gallery_iface(GalleryApp): instance to interface gallery app
     """
     @pytest.fixture(autouse=True)
     def setup(self, driver):
