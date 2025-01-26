@@ -4,6 +4,28 @@ Base class file
 from utils.click import Click
 from utils.scroll import Scroll, ScrollError, ScrollDirection
 from utils.zoom import Zoom
+from appium import webdriver
+
+
+def common_button_obj(func):
+    """
+    Decorator function for handle driver methods
+    Args:
+        func(Function): method to used decorator
+    """
+    def _inner(self, *args, **kwargs):
+        """
+        Inner function
+        """
+        locator = kwargs.pop("locator")
+        driver = kwargs.pop("driver", None)
+        if not isinstance(locator, tuple):
+            raise BaseAppError(f"Locator should be a tuple. But it is {type(locator)}")
+        if len(locator) != 2:
+            raise BaseAppError (f"Should be two elements. But it has {len(locator)}")
+        driver = driver or self.base_driver
+        func(self=self, locator=locator, driver=driver, *args, **kwargs)
+    return _inner
 
 
 class BaseAppError(Exception):
@@ -20,26 +42,29 @@ class BaseApp:
     def __init__(self, driver):
         self.base_driver = driver
 
-    def click_app_button(self, locator, driver=None):
+    @common_button_obj
+    def click_app_button(self, locator:tuple, driver:webdriver.Remote):
         """
         Click on the object that matches the 'locator'
 
         Args:
             locator (tuple): type of identifier (AppiumID), value to look for (str)
+            driver (Webdriver): Webdriver instance
         """
-        driver = driver or self.base_driver
-        button_obj = self.base_driver.find_element(*locator)
+        button_obj = driver.find_element(*locator)
         button_obj.click()
 
-    def click_app_button_in_list(self, locator, element):
+    @common_button_obj
+    def click_app_button_in_list(self, locator:tuple, driver:webdriver.Remote, element:int):
         """
         Method to click on an element from a list of elements
 
         Args:
             locator (tuple): type of identifier (AppiumID), value to look for (str)
+            driver (Webdriver): Webdriver instance
             element(WebDriver): Element to look for it
         """
-        button_obj = self.base_driver.find_elements(*locator)[element]
+        button_obj = driver.find_elements(*locator)[element]
         button_obj.click()
 
     def get_text(self, locator):
