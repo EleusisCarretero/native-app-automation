@@ -63,13 +63,13 @@ class CalculatorApp(BaseApp):
         """
         if num not in NumButton:
             raise CalculatorAppError(f"{num} is not an allow number")
-        self.click_app_button(CalculatorLocators.get_num_locator(num=num))
+        self.click_app_button(locator=CalculatorLocators.get_num_locator(num=num))
 
     def equals_to(self):
         """
         Method to clicks on the 'equals' symbol.
         """
-        self.click_app_button(CalculatorLocators.get_op_locator(op="Calculation"))
+        self.click_app_button(locator=CalculatorLocators.get_op_locator(op="Calculation"))
 
     def result(self):
         """
@@ -78,7 +78,7 @@ class CalculatorApp(BaseApp):
         Returns:
             str: string number, or '-' string number
         """
-        response = self.get_text(CalculatorLocators.get_result()).split()
+        response = self.get_text(locator=CalculatorLocators.get_result()).split()
         if 'Minus' in response:
             return "-" + response[1].replace(",","")
         return response[0].replace(",","")
@@ -87,28 +87,28 @@ class CalculatorApp(BaseApp):
         """
         Method to click on addition button.
         """
-        self.click_app_button(CalculatorLocators.get_op_locator(op="Plus"))
+        self.click_app_button(locator=CalculatorLocators.get_op_locator(op="Plus"))
 
     def subtraction(self):
         """
         Method to click on subtraction button.
         """
-        self.click_app_button(CalculatorLocators.get_op_locator(op="Minus"))
+        self.click_app_button(locator=CalculatorLocators.get_op_locator(op="Minus"))
     
     def multiplication(self):
         """
         Method to click on 'Multiplication' button.
         """
-        self.click_app_button(CalculatorLocators.get_op_locator(op="Multiplication"))
+        self.click_app_button(locator=CalculatorLocators.get_op_locator(op="Multiplication"))
     
     def division(self):
         """
         Method to click on 'Division' button.
         """
-        self.click_app_button(CalculatorLocators.get_op_locator(op="Division"))
+        self.click_app_button(locator=CalculatorLocators.get_op_locator(op="Division"))
 
     def percentage(self):
-        self.click_app_button(CalculatorLocators.get_op_locator(op="Percentage"))
+        self.click_app_button(locator=CalculatorLocators.get_op_locator(op="Percentage"))
 
     def set_sequence_number(self, num):
         """
